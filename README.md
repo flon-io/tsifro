@@ -9,6 +9,6 @@ Bcrypt wrapper, inspired by https://github.com/rg3/bcrypt/
 
 ## Licenses
 
-The tiny .h and .c files directly under src/ are MIT licensed (see [LICENSE.txt](LICENSE.txt))
-The files under src/openwall have their own license (BSD?)
+src/tsifro.c and .h are MIT licensed (see [LICENSE.txt](LICENSE.txt))
+The rest of the files under src/ have their own license.
 
