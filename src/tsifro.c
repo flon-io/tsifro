@@ -85,6 +85,7 @@ int ftsi_bc_verify(const char *pass, const char *hash)
   int r = 1;
   for (size_t i = 0; i < BC_HASHSIZE; ++i) r = (h[i] == hash[i]) ? r : 0;
 
+  if (h != hh) free(hh);
   free(h);
 
   return r;
