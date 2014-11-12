@@ -62,3 +62,14 @@ char *ftsi_generate_bc_salt(int work_factor)
   return salt;
 }
 
+char *ftsi_bc_hash(const char *s, const char *salt)
+{
+  char *hash = calloc(BC_HASHSIZE + 1, sizeof(char));
+
+  char *r = crypt_rn(s, salt, hash, BC_HASHSIZE);
+
+  if (r == NULL) { free(hash); return NULL; }
+
+  return hash;
+}
+

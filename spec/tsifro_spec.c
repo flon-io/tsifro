@@ -46,6 +46,24 @@ context "tsifro"
 
       expect(s ^== "$2a$14");
     }
+
+    it "accepts a different scheme ($2b$?)"
+  }
+
+  describe "ftsi_bc_hash()"
+  {
+    it "hashes strings"
+    {
+      char *salt = ftsi_generate_bc_salt(10);
+
+      char *h0 = ftsi_bc_hash("toto nada", salt);
+      char *h1 = ftsi_bc_hash("toto nada", h0);
+
+      expect(h0 === h1);
+      //ret = bcrypt_hashpw("thepassword", "expectedhash", outhash);
+
+      free(salt); free(h0); free(h1);
+    }
   }
 }
 
