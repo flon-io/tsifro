@@ -73,3 +73,18 @@ char *ftsi_bc_hash(const char *s, const char *salt)
   return hash;
 }
 
+int ftsi_bc_verify(const char *pass, const char *hash)
+{
+  char *h = ftsi_bc_hash(pass, hash);
+
+  char *hh = calloc(BC_HASHSIZE + 1, sizeof(char));
+  if (h == NULL) h = hh;
+
+  int r = 1;
+  for (size_t i = 0; i < BC_HASHSIZE; ++i) r = (h[i] == hash[i]) ? r : 0;
+
+  free(h);
+
+  return r;
+}
+

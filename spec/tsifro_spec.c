@@ -65,5 +65,29 @@ context "tsifro"
       free(salt); free(h0); free(h1);
     }
   }
+
+  describe "ftsi_bc_verify()"
+  {
+    before each
+    {
+      char *salt = ftsi_generate_bc_salt(10);
+      char *hash = ftsi_bc_hash("heavy rotation", salt);
+    }
+    after each
+    {
+      free(salt);
+      free(hash);
+    }
+
+    it "returns 1 if the pass matches"
+    {
+      expect(ftsi_bc_verify("heavy rotation", hash) i== 1);
+    }
+
+    it "returns 0 else"
+    {
+      expect(ftsi_bc_verify("light rotation", hash) i== 0);
+    }
+  }
 }
 
