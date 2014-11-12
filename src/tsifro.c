@@ -38,7 +38,7 @@
 #define BC_HASHSIZE 64
 
 
-char *ftsi_generate_bc_salt(int work_factor)
+char *ftsi_generate_bc_salt(char *prefix, int work_factor)
 {
   if (work_factor < 4 || work_factor > 31) { errno = EINVAL; return NULL; }
 
@@ -54,8 +54,10 @@ char *ftsi_generate_bc_salt(int work_factor)
 
   char *salt = calloc(BC_HASHSIZE + 1, sizeof(char));
 
+  if (prefix == NULL) prefix = "$2a$";
+
   char *s = crypt_gensalt_rn(
-    "$2a$", work_factor, rand, BC_RANDSIZE, salt, BC_HASHSIZE);
+    prefix, work_factor, rand, BC_RANDSIZE, salt, BC_HASHSIZE);
 
   if (s == NULL) { free(salt); return NULL; }
 

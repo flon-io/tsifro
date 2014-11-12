@@ -29,7 +29,7 @@
 #define FLON_TSIFRO_H
 
 
-char *ftsi_generate_bc_salt(int work_factor);
+char *ftsi_generate_bc_salt(char *prefix, int work_factor);
 char *ftsi_bc_hash(const char *s, const char *salt);
 int ftsi_bc_verify(const char *pass, const char *hash);
 

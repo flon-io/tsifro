@@ -26,7 +26,7 @@ context "tsifro"
 
     it "rejects work factors < 4"
     {
-      s = ftsi_generate_bc_salt(1);
+      s = ftsi_generate_bc_salt(NULL, 1);
 
       expect(s == NULL);
       expect(errno i== EINVAL);
@@ -34,7 +34,7 @@ context "tsifro"
 
     it "rejects work factors > 31"
     {
-      s = ftsi_generate_bc_salt(33);
+      s = ftsi_generate_bc_salt(NULL, 33);
 
       expect(s == NULL);
       expect(errno i== EINVAL);
@@ -42,19 +42,24 @@ context "tsifro"
 
     it "generates a salt"
     {
-      s = ftsi_generate_bc_salt(14);
+      s = ftsi_generate_bc_salt(NULL, 14);
 
       expect(s ^== "$2a$14");
     }
 
-    it "accepts a different scheme ($2b$?)"
+    it "accepts a different scheme"
+    {
+      s = ftsi_generate_bc_salt("$2b$", 13);
+
+      expect(s ^== "$2b$13");
+    }
   }
 
   describe "ftsi_bc_hash()"
   {
     it "hashes strings"
     {
-      char *salt = ftsi_generate_bc_salt(10);
+      char *salt = ftsi_generate_bc_salt(NULL, 10);
 
       char *h0 = ftsi_bc_hash("toto nada", salt);
       char *h1 = ftsi_bc_hash("toto nada", h0);
@@ -70,7 +75,7 @@ context "tsifro"
   {
     before each
     {
-      char *salt = ftsi_generate_bc_salt(10);
+      char *salt = ftsi_generate_bc_salt(NULL, 10);
       char *hash = ftsi_bc_hash("heavy rotation", salt);
     }
     after each
