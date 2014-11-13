@@ -93,6 +93,15 @@ context "tsifro"
     {
       expect(ftsi_bc_verify("light rotation", hash) i== 0);
     }
+
+    it "verifies 'wyvern'"
+    {
+      expect(
+        ftsi_bc_verify(
+          "wyvern",
+          "$2a$07$hi1ZGrPNfHAX/a5p0oTu0edFxY3aCZBK.NfIx9RrIEPWaiidMV8ty"
+        ) i== 1);
+    }
   }
 }
 
